@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 
-export default class Home extends Component {
+export default class Detail extends Component {
   render() {
     return (
-      <Text>Home</Text>
+      <Text>Detail</Text>
     );
   }
 }
