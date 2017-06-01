@@ -10,12 +10,13 @@ export default class Home extends Component {
   render() {
 
     const { navigate } = this.props.navigation;
+    const { timers } = this.props.screenProps;
 
     return (
       <View>
         <Button title="show detail" onPress={() => navigate('Detail')} />
         <FlatList
-          data={[{key: 'a'}, {key: 'b'}]}
+          data={timers}
           renderItem={({item}) => <TimerItem timer={item} />}
         />
       </View>
