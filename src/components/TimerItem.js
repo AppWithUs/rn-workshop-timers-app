@@ -29,10 +29,12 @@ export default class TimerItem extends Component {
           <Button
             containerStyle={styles.button}
             title="Start"
+            type="success"
             onPress={() => {}}
           />
           <Button
             title="Reset"
+            type="warning"
             onPress={() => {}}
           />
         </View>
