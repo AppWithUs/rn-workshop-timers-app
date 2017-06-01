@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 export default class TimerItem extends Component {
 
@@ -11,11 +11,23 @@ export default class TimerItem extends Component {
     const { timer } = this.props;
 
     return (
-      <View>
-        <Text>{JSON.stringify(timer)}</Text>
+      <View style={styles.container}>
+        <Text>{timer.name}</Text>
       </View>
     );
   }
 
 
 };
+
+const styles = StyleSheet.create({
+  container: {
+    borderWidth: 1,
+    borderColor: 'lightgray',
+    marginTop: 8,
+    marginLeft: 8,
+    marginRight: 8,
+    height: 64,
+    backgroundColor: 'white',
+  }
+});
