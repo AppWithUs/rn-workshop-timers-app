@@ -3,6 +3,13 @@ import { View, Text, StyleSheet } from 'react-native';
 import Button from './Button';
 import moment from 'moment';
 import lp from 'left-pad';
+import {
+  isRunning,
+  isPaused,
+  hasFinished,
+  isStopped,
+  getRemainingSeconds
+} from '../util/timers';
 
 // 3599 => '00:59:59'
 const formatDuration = duration => {
@@ -14,29 +21,59 @@ export default class TimerItem extends Component {
 
   static propTypes = {
     timer: PropTypes.object,
+    startTimer: PropTypes.func,
+    pauseTimer: PropTypes.func,
+    resumeTimer: PropTypes.func,
+    resetTimer: PropTypes.func,
   };
 
   render () {
-    const { timer } = this.props;
+    const {
+      timer,
+      startTimer,
+      pauseTimer,
+      resumeTimer,
+      resetTimer,
+    } = this.props;
 
     return (
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Text style={styles.nameText}>{timer.name}</Text>
-          <Text style={styles.durationText}>{formatDuration(timer.duration)}</Text>
+          <Text style={styles.durationText}>{formatDuration(getRemainingSeconds(timer))}</Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button
-            containerStyle={styles.button}
-            title="Start"
-            type="success"
-            onPress={() => {}}
-          />
-          <Button
-            title="Reset"
-            type="warning"
-            onPress={() => {}}
-          />
+          {isStopped(timer) &&
+            <Button
+              containerStyle={styles.button}
+              title="Start"
+              type="success"
+              onPress={startTimer}
+            />
+          }
+          {isPaused(timer) && !hasFinished(timer) &&
+            <Button
+              containerStyle={styles.button}
+              title="Resume"
+              type="success"
+              onPress={resumeTimer}
+            />
+          }
+          {isRunning(timer) &&
+            <Button
+              containerStyle={styles.button}
+              title="Pause"
+              type="warning"
+              onPress={pauseTimer}
+            />
+          }
+          {(isPaused(timer) || hasFinished(timer)) &&
+            <Button
+              title="Reset"
+              type="danger"
+              onPress={resetTimer}
+            />
+          }
         </View>
       </View>
     );
