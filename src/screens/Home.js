@@ -24,10 +24,8 @@ export default class Home extends Component {
   scheduleRerender (props) {
     const { timers } = props.screenProps;
     const someRunning = timers.some(t => t.running);
-    console.log("schedule rerender", {someRunning});
     if (someRunning && !this.intervalId) {
       this.intervalId = setInterval(() => {
-        console.log("trigger rerender");
         this.setState({ _triggerRerender: Date.now() });
       }, 200);
     } else if (!someRunning) {

@@ -61,7 +61,6 @@ export default class MainApp extends Component {
   };
 
   startTimer = key => {
-    console.log("START", key);
     const timer = this.findTimer(key);
     if (!timer) return;
     timerUtils.startTimer(timer);
