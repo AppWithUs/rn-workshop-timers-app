@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, FlatList } from 'react-native';
+import { View, Button, FlatList, StyleSheet } from 'react-native';
 import TimerItem from '../components/TimerItem';
 
 export default class Home extends Component {
@@ -13,9 +13,10 @@ export default class Home extends Component {
     const { timers } = this.props.screenProps;
 
     return (
-      <View>
+      <View style={styles.container}>
         <Button title="show detail" onPress={() => navigate('Detail')} />
         <FlatList
+          style={styles.list}
           data={timers}
           renderItem={({item}) => <TimerItem timer={item} />}
         />
@@ -23,3 +24,12 @@ export default class Home extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  list: {
+    flex: 1,
+  },
+});
