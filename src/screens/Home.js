@@ -3,9 +3,11 @@ import { View, Button, FlatList, StyleSheet } from 'react-native';
 import TimerItem from '../components/TimerItem';
 
 export default class Home extends Component {
-  static navigationOptions = {
+  static navigationOptions = ({navigation}) => ({
     title: 'Timers',
-  };
+    headerBackTitle: 'Back',
+    headerRight: <Button onPress={() => navigation.navigate('Detail')} title="Create" />,
+  });
 
   intervalId = 0;
 
@@ -47,7 +49,6 @@ export default class Home extends Component {
 
     return (
       <View style={styles.container}>
-        <Button title="show detail" onPress={() => navigate('Detail')} />
         <FlatList
           style={styles.list}
           data={timers}
