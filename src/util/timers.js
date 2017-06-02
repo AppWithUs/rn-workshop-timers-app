@@ -41,7 +41,7 @@ export function isStopped (timer) {
 
 export function getRemainingSeconds (timer) {
   if (isRunning(timer)) {
-    const s = timer.remaining - ((Date.now() - timer.started.getTime()) / 1000);
+    const s = timer.remaining - ((Date.now() / 1000) - (timer.started.getTime() / 1000));
     console.log("getRemainingSeconds running", s);
     return s;
   } else {

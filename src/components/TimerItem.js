@@ -27,6 +27,29 @@ export default class TimerItem extends Component {
     resetTimer: PropTypes.func,
   };
 
+  intervalId = 0;
+
+  constructor (props) {
+    super(props);
+    this.scheduleRerender(props);
+  }
+
+  scheduleRerender ({ timer }) {
+    if (timer.running && !this.intervalId) {
+      this.intervalId = setInterval(() => {
+        console.log("trigger rerender");
+        this.setState({ _triggerRerender: Date.now() });
+      }, 200);
+    } else if (!timer.running) {
+      clearInterval(this.intervalId);
+      this.intervalId = 0;
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.scheduleRerender(nextProps);
+  }
+
   render () {
     const {
       timer,
