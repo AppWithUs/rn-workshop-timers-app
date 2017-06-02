@@ -7,6 +7,35 @@ export default class Home extends Component {
     title: 'Timers',
   };
 
+  intervalId = 0;
+
+  constructor (props) {
+    super(props);
+    this.state = {
+      _triggerRerender: Date.now(),
+    };
+    this.scheduleRerender(props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.scheduleRerender(nextProps);
+  }
+
+  scheduleRerender (props) {
+    const { timers } = props.screenProps;
+    const someRunning = timers.some(t => t.running);
+    console.log("schedule rerender", {someRunning});
+    if (someRunning && !this.intervalId) {
+      this.intervalId = setInterval(() => {
+        console.log("trigger rerender");
+        this.setState({ _triggerRerender: Date.now() });
+      }, 200);
+    } else if (!someRunning) {
+      clearInterval(this.intervalId);
+      this.intervalId = 0;
+    }
+  }
+
   render() {
 
     const { navigate } = this.props.navigation;
@@ -24,6 +53,7 @@ export default class Home extends Component {
         <FlatList
           style={styles.list}
           data={timers}
+          extraData={this.state}
           renderItem={({item}) => (
             <TimerItem
               timer={item}
