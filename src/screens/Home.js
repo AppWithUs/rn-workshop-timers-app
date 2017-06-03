@@ -6,7 +6,7 @@ export default class Home extends Component {
   static navigationOptions = ({navigation}) => ({
     title: 'Timers',
     headerBackTitle: 'Back',
-    headerRight: <Button onPress={() => navigation.navigate('Detail')} title="Create" />,
+    headerRight: <Button onPress={() => navigation.navigate('Create')} title="Create" />,
   });
 
   intervalId = 0;

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation';
 import HomeScreen from './screens/Home';
-import DetailScreen from './screens/Detail';
+import CreateScreen from './screens/Create';
 import * as timerUtils from './util/timers';
 
 const MainNavigator = StackNavigator({
   Home: { screen: HomeScreen },
-  Detail: { screen: DetailScreen },
+  Create: { screen: CreateScreen },
 });
 
 const DEMO_TIMERS = [
