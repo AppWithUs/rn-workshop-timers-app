@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Dimensions, TextInput, StyleSheet, View } from 'react-native';
+import { Alert, Button, Dimensions, TextInput, StyleSheet, View } from 'react-native';
 import { isColon, replaceAt } from '../util/string';
+import { getSeconds } from '../util/digits';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -30,9 +31,9 @@ const styles = StyleSheet.create({
 const DEFAULT_DIGITS = '00:00:00';
 
 export default class Create extends Component {
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     title: 'Create',
-  };
+  });
 
   state = {
     name: '',
@@ -67,6 +68,19 @@ export default class Create extends Component {
     }
   };
 
+  onSave = () => {
+    if (this.state.name.length === 0) {
+      Alert.alert('Name must not be empty');
+      return;
+    }
+
+    const seconds = getSeconds(this.state.digits);
+    if (seconds === 0) {
+      Alert.alert('Timer must at least be 1 second!');
+      return;
+    }
+  };
+
   render() {
     const { digits, digitsCaretIndex } = this.state;
 
@@ -88,6 +102,7 @@ export default class Create extends Component {
           selection={{ start: digitsCaretIndex, end: digitsCaretIndex }}
           maxLength={DEFAULT_DIGITS.length}
         />
+        <Button onPress={this.onSave} title="Save" />
       </View>
     );
   }

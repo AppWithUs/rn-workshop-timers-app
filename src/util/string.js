@@ -5,3 +5,4 @@ export function replaceAt(str, index, replacement) {
 export function isColon(char) {
   return char === ':';
 }
+
