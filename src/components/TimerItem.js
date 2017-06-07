@@ -14,7 +14,7 @@ import {
 // 3599 => '00:59:59'
 const formatDuration = duration => {
   const m = moment.duration(duration * 1000);
-  return `${lp(m.hours(), 2, '0')}:${lp(m.minutes(), 2, '0')}:${lp(m.seconds(), 2, '0')}`;
+  return `${lp(Math.floor(m.asHours()), 2, '0')}:${lp(m.minutes(), 2, '0')}:${lp(m.seconds(), 2, '0')}`;
 };
 
 export default class TimerItem extends Component {

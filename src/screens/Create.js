@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Alert, Button, Dimensions, TextInput, StyleSheet, View } from 'react-native';
 import { isColon, replaceAt } from '../util/string';
 import { getSeconds } from '../util/digits';
+import * as timerUtils from '../util/timers';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -69,6 +70,11 @@ export default class Create extends Component {
   };
 
   onSave = () => {
+    const { goBack } = this.props.navigation;
+    const {
+      upsertTimer,
+    } = this.props.screenProps;
+
     if (this.state.name.length === 0) {
       Alert.alert('Name must not be empty');
       return;
@@ -79,6 +85,15 @@ export default class Create extends Component {
       Alert.alert('Timer must at least be 1 second!');
       return;
     }
+
+    console.log({seconds});
+
+    const t = timerUtils.createTimer();
+    t.name = this.state.name;
+    t.duration = seconds;
+    t.remaining = t.duration;
+    upsertTimer(t);
+    goBack();
   };
 
   render() {
