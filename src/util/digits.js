@@ -18,3 +18,12 @@ export function getSeconds(digits) {
 
   return seconds;
 }
+
+export function pushDigit(digits, digit) {
+  const asArray = digits.replace(/:\s*/g, '').split('');
+
+  asArray.push(digit);
+  asArray.shift();
+
+  return asArray.join('').replace(/(..)/g, '$1:').slice(0,-1);
+}

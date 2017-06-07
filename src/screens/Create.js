@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, Button, Dimensions, TextInput, StyleSheet, View } from 'react-native';
 import { isColon, replaceAt } from '../util/string';
-import { getSeconds } from '../util/digits';
+import { getSeconds, pushDigit } from '../util/digits';
 import * as timerUtils from '../util/timers';
 
 const windowWidth = Dimensions.get('window').width;
@@ -50,21 +50,16 @@ export default class Create extends Component {
       });
     }
 
-    if (this.state.digitsCaretIndex === 0) {
+    const currentSeconds = getSeconds(this.state.digits);
+    if (key === '0' && !currentSeconds) {
       return;
     }
 
     if (!isNaN(key)) {
-      const replaceIndex = isColon(this.state.digits[this.state.digitsCaretIndex - 1] === ':') ?
-        this.state.digitsCaretIndex - 2 :
-        this.state.digitsCaretIndex - 1;
-
-      const digits = replaceAt(this.state.digits, replaceIndex, key);
-      const nextReplaceIndex = replaceIndex - 1;
+      const digits = pushDigit(this.state.digits, key);
 
       this.setState({
-        digits,
-        digitsCaretIndex: isColon(digits[nextReplaceIndex]) ? nextReplaceIndex : replaceIndex
+        digits
       });
     }
   };

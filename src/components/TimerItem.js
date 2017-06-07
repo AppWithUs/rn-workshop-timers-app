@@ -13,7 +13,12 @@ import {
 
 // 3599 => '00:59:59'
 const formatDuration = duration => {
+  if (duration <= 0) {
+    return '00:00:00';
+  }
+
   const m = moment.duration(duration * 1000);
+
   return `${lp(Math.floor(m.asHours()), 2, '0')}:${lp(m.minutes(), 2, '0')}:${lp(m.seconds(), 2, '0')}`;
 };
 
@@ -26,6 +31,12 @@ export default class TimerItem extends Component {
     resumeTimer: PropTypes.func,
     resetTimer: PropTypes.func,
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (!hasFinished(this.props.timer) && hasFinished(nextProps.timer)) {
+      // play sound here
+    }
+  }
 
   render () {
     const {
