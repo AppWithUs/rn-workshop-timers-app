@@ -22,7 +22,7 @@ const DEMO_TIMERS = [
     key: '849de632-363b-41e1-bc41-557005b83871',
     name: 'Kartoffeln',
     duration: 1800,
-    remaining: 0,
+    remaining: 1,
     started: null,
     running: false,
   },

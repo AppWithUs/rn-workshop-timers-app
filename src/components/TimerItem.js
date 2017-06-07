@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import Sound from 'react-native-sound';
 import Button from './Button';
 import moment from 'moment';
 import lp from 'left-pad';
@@ -10,6 +11,9 @@ import {
   isStopped,
   getRemainingSeconds
 } from '../util/timers';
+
+Sound.setCategory('Playback');
+const sound = new Sound('rooster.mp3', Sound.MAIN_BUNDLE);
 
 // 3599 => '00:59:59'
 const formatDuration = duration => {
@@ -23,6 +27,7 @@ const formatDuration = duration => {
 };
 
 export default class TimerItem extends Component {
+  playedSound = false;
 
   static propTypes = {
     timer: PropTypes.object,
@@ -33,8 +38,9 @@ export default class TimerItem extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (!hasFinished(this.props.timer) && hasFinished(nextProps.timer)) {
-      // play sound here
+    if (hasFinished(nextProps.timer) && !this.playedSound) {
+      this.playedSound = true;
+      sound.play();
     }
   }
 

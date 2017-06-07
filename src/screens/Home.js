@@ -29,6 +29,7 @@ export default class Home extends Component {
     if (someRunning && !this.intervalId) {
       this.intervalId = setInterval(() => {
         this.setState({ _triggerRerender: Date.now() });
+
       }, 200);
     } else if (!someRunning) {
       clearInterval(this.intervalId);
